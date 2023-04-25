@@ -1,6 +1,6 @@
 ﻿namespace UniFi.Core.Models;
 
-public class ModelBase
+public class NetworkModel : BaseModel
 {
     
 }
