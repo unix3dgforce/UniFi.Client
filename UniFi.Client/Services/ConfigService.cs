@@ -18,7 +18,8 @@ public class ConfigService : IConfigService
         AppConfig = new AppConfigModel
         {
             Endpoint = appConfig.Value.Endpoint,
-            Credential = appConfig.Value.Credential
+            Credential = appConfig.Value.Credential,
+            Controller = appConfig.Value.Controller
         };
     }
 }
