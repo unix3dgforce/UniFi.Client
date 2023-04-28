@@ -16,6 +16,6 @@ public class MetaModel
     public string ServerVersion { get; set; }
     
     [JsonProperty(PropertyName = "rc", Required = Required.Always)]
-    public string ResultCode { get; set; }
+    public ResultCodeState ResultCode { get; set; }
     
 }
