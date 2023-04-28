@@ -22,6 +22,7 @@ public class RestClient
         {
             RemoteCertificateValidationCallback = (sender, certificate, chain, errors) => true
         };
+        
         _client = new RestSharp.RestClient(options, configureSerialization: s => s.UseNewtonsoftJson());
     }
 
@@ -30,18 +31,18 @@ public class RestClient
         return await ExecuteAsync(resource, Method.Get, body, cancellationToken);
     }
     
-    public async Task<OperationResult<T>> GetAsync<T>(string resource, object body = null, CancellationToken cancellationToken = default)
+    public async Task<OperationResultList<T>> GetAsync<T>(string resource, object body = null, CancellationToken cancellationToken = default)
         where T : BaseModel
     {
         return await ExecuteAsync<T>(resource, Method.Get, body, cancellationToken);
     }
-
+    
     public async Task<OperationResult> PostAsync(string resource, object body = null, CancellationToken cancellationToken = default)
     {
         return await ExecuteAsync(resource, Method.Post, body, cancellationToken);
     }
 
-    public async Task<OperationResult<T>> PostAsync<T>(string resource, object body = null, CancellationToken cancellationToken = default)
+    public async Task<OperationResultList<T>> PostAsync<T>(string resource, object body = null, CancellationToken cancellationToken = default)
         where T : BaseModel
     {
         return await ExecuteAsync<T>(resource, Method.Post, body, cancellationToken);
@@ -52,7 +53,7 @@ public class RestClient
         return await ExecuteAsync(resource, Method.Put, body, cancellationToken);
     }
 
-    public async Task<OperationResult<T>> PutAsync<T>(string resource, object body = null, CancellationToken cancellationToken = default)
+    public async Task<OperationResultList<T>> PutAsync<T>(string resource, object body = null, CancellationToken cancellationToken = default)
         where T : BaseModel
     {
         return await ExecuteAsync<T>(resource, Method.Put, body, cancellationToken);
@@ -63,7 +64,7 @@ public class RestClient
         return await ExecuteAsync(resource, Method.Delete, body, cancellationToken);
     }
 
-    public async Task<OperationResult<T>> DeleteAsync<T>(string resource, object body = null, CancellationToken cancellationToken = default)
+    public async Task<OperationResultList<T>> DeleteAsync<T>(string resource, object body = null, CancellationToken cancellationToken = default)
         where T : BaseModel
     {
         return await ExecuteAsync<T>(resource, Method.Delete, body, cancellationToken);
@@ -71,16 +72,19 @@ public class RestClient
     
     private async Task CheckAuthorized()
     {
-        if (_cache.Get<Cookie>(_config.AppConfig.Credential.Username).Result == OperationStatus.Success)
+        if (_cache.Get<CookieCollection>(_config.AppConfig.Credential.Username).Result == OperationStatus.Success)
             return;
 
-        await Authenticate();
-
+        var authResult = await Authenticate("api/login");
+        if (authResult.Result == OperationStatus.Success)
+            return;
+        
+        await Authenticate("api/auth/login");
     }
 
-    private async Task<OperationResult> Authenticate()
+    private async Task<OperationResult> Authenticate(string resource = "api/login")
     {
-        var request = CreateRequest("api/login", Method.Post, _config.AppConfig.Credential);
+        var request = CreateRequest(resource, Method.Post, _config.AppConfig.Credential);
         if (request == null)
             return OperationResult.Fail();
 
@@ -95,41 +99,42 @@ public class RestClient
 
     private async Task<OperationResult> ExecuteAsync(string resource, Method method, object body = null, CancellationToken cancellationToken = default, bool checkAuthorized = true)
     {
+        if (checkAuthorized)
+            await CheckAuthorized();
+        
         var request = CreateRequest(resource, method, body);
         if (request == null)
             return null;
 
-        if (checkAuthorized)
-            await CheckAuthorized();
+        var response = await _client.ExecuteAsync<BaseResponseModel<BaseModel>>(request, cancellationToken);
 
-        var response = await _client.ExecuteAsync(request, cancellationToken);
+        if (!response.IsSuccessful || response.Data?.Meta.ResultCode == ResultCodeState.Error)
+            return OperationResult.Fail();
 
-        return response.IsSuccessful 
-            ? OperationResult.Success() 
-            : OperationResult.Fail();
+        return OperationResult.Success();
+
     }
     
-    private async Task<OperationResult<T>> ExecuteAsync<T>(string resource, Method method, object body = null, CancellationToken cancellationToken = default, bool checkAuthorized = true)
+    private async Task<OperationResultList<T>> ExecuteAsync<T>(string resource, Method method, object body = null, CancellationToken cancellationToken = default, bool checkAuthorized = true)
         where T : BaseModel
     {
+        if (checkAuthorized)
+            await CheckAuthorized();
+        
         var request = CreateRequest(resource, method, body);
         if (request == null)
             return null;
 
-        if (checkAuthorized)
-            await CheckAuthorized();
-
         var response = await _client.ExecuteAsync<BaseResponseModel<T>>(request, cancellationToken);
-
+                
         if (!response.IsSuccessful)
-            return OperationResult<T>.Fail();
+            return OperationResultList<T>.Fail();
         
-        return new OperationResult<T>
+        return new OperationResultList<T>
         {
             Result = OperationStatus.Success,
-            Value = response.Data as T
+            Values = response.Data!.Data as List<T>
         };
-
     }
     
     private RestRequest CreateRequest(string resource, Method method, object body = null)
@@ -138,7 +143,13 @@ public class RestClient
 
         if (body != null)
             request.AddJsonBody(body);
-    
+
+        var cookies = _cache.Get<CookieCollection>(_config.AppConfig.Credential.Username);
+
+        if (cookies != null && cookies.Result == OperationStatus.Success)
+            cookies.Value.ToList().ForEach(cookie =>
+                request.AddCookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
+
         return request;
     }
 }
