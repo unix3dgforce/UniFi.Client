@@ -5,7 +5,6 @@ public class ClientService : BaseService, IClientService
     
     public ClientService(RestClient restClient, IConfigService configService) : base(restClient, configService) { }
     
-   
     public async Task<OperationResult> AuthorizeGuest(string macAddress)
     {
         return await AuthorizeGuest(new AuthorizeGuestModel { MacAddress = macAddress });
@@ -75,6 +74,4 @@ public class ClientService : BaseService, IClientService
     {
         return await TryGetAsync<ClientModel>($"api/s/{SiteId}/stat/alluser");
     }
-
-    
 }
