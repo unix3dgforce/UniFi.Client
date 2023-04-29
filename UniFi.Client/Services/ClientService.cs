@@ -61,6 +61,11 @@ public class ClientService : BaseService, IClientService
             : await TryPostAsync($"api/s/{SiteId}/cmd/stamgr", new { Mac = macAddress, Cmd = "kick-sta"});
     }
 
+    public async Task<OperationResult<ClientModel>> RenameClient(string userId, string name)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<OperationResultList<ClientModel>> GetAllActiveClients()
     {
         return await TryGetAsync<ClientModel>($"api/s/{SiteId}/stat/sta");
