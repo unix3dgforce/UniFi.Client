@@ -58,10 +58,15 @@ public abstract class BaseService : IService
         return await Execute(_restClient.PostAsync<T>, resource, body);
     }
     
+    protected async Task<OperationResult> TryPutAsync(string resource, object body = null)
+    {
+        return await Execute(_restClient.PutAsync, resource, body);
+    }
+    
     protected async Task<OperationResultList<T>> TryPutAsync<T>(string resource, object body = null)
         where T : BaseModel
     {
-        return await Execute(_restClient.GetAsync<T>, resource, body);
+        return await Execute(_restClient.PutAsync<T>, resource, body);
     }
     
     protected async Task<OperationResultList<T>> TryDeleteAsync<T>(string resource, object body = null)

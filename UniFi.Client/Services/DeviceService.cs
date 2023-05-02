@@ -1,4 +1,6 @@
-﻿namespace UniFi.Client.Services;
+﻿using UniFi.Core;
+
+namespace UniFi.Client.Services;
 
 public class DeviceService : BaseService, IDeviceService
 {
@@ -28,7 +30,7 @@ public class DeviceService : BaseService, IDeviceService
 
         return result.Result != OperationStatus.Success
             ? result
-            : await TryPostAsync($"api/s/{SiteId}/cmd/devmgr", new { Mac = macAddress, Reboot_Type = rebootType, Cmd = "restart" });
+            : await TryPostAsync($"api/s/{SiteId}/cmd/devmgr", new { Mac = macAddress, RebootType = rebootType, Cmd = "restart" });
     }
 
     public async Task<OperationResult> DeleteDevice(string macAddress)
@@ -49,8 +51,23 @@ public class DeviceService : BaseService, IDeviceService
             : await TryPostAsync($"api/s/{SiteId}/cmd/devmgr/upgrade", new { Mac = macAddress });
     }
 
-    public Task<OperationResult> UpgradeDeviceExternal(string macAddress, string firmwareUrl)
+    public async Task<OperationResult> UpgradeDeviceExternal(string macAddress, string firmwareUrl)
     {
-        throw new NotImplementedException();
+        if (UrlUtils.IsValidUrl(firmwareUrl).Result != OperationStatus.Success)
+            return OperationResult.Fail(Resources.Validate_Error_FirmwareUrl);
+        
+        var result = StringUtils.CheckMacAddress(macAddress);
+        
+        return result.Result != OperationStatus.Success
+            ? result
+            : await TryPostAsync($"api/s/{SiteId}/cmd/devmgr/upgrade-external", new { Mac = macAddress, Url = firmwareUrl });
+    }
+
+    public async Task<OperationResult> LedOverrideMode(string deviceId, OverrideModeEnum mode)
+    {
+        if (string.IsNullOrEmpty(deviceId))
+            return OperationResult.Fail();
+
+        return await TryPutAsync($"api/s/{SiteId}/rest/device/{deviceId}", new { LedOverride = mode });
     }
 }
