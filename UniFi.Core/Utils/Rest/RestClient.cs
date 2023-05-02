@@ -24,7 +24,6 @@ public class RestClient
             RemoteCertificateValidationCallback = (sender, certificate, chain, errors) => true
         };
 
-        // _client = new RestSharp.RestClient(options, configureSerialization: s => s.UseNewtonsoftJson());
         _client = new RestSharp.RestClient(
             options, 
             configureSerialization: s => s.UseNewtonsoftJson(

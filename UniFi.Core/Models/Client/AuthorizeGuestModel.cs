@@ -39,5 +39,4 @@ public class AuthorizeGuestModel: BaseModel
     
     [JsonProperty(PropertyName = "ap_mac")]
     public string? ApMacAddress { get; set; }
-
 }
