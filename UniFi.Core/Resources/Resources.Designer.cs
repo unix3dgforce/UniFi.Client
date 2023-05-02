@@ -60,6 +60,15 @@ namespace UniFi.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Backup generation error.
+        /// </summary>
+        public static string Backup_Error_Generation {
+            get {
+                return ResourceManager.GetString("Backup_Error_Generation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filename cannot be empty.
         /// </summary>
         public static string Backup_Info_NotEmpty_Filename {

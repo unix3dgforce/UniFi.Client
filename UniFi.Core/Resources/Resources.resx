@@ -39,4 +39,7 @@
     <data name="Backup_Info_NotEmpty_Filename" xml:space="preserve">
         <value>Filename cannot be empty</value>
     </data>
+    <data name="Backup_Error_Generation" xml:space="preserve">
+        <value>Backup generation error</value>
+    </data>
 </root>
