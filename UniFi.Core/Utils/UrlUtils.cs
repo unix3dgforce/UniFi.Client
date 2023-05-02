@@ -14,6 +14,5 @@ public class UrlUtils
                    result.Scheme == Uri.UriSchemeFtps)
             ? OperationResult.Success()
             : OperationResult.Fail();
-
     }
 }
