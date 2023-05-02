@@ -9,10 +9,10 @@ public interface IBackupService : IService
     public Task<OperationResult> BackupSite();
     
     /// <summary>
-    /// 
+    /// Generate a backup
     /// </summary>
     /// <returns></returns>
-    public Task<OperationResult> BackupFull();
+    public Task<OperationResult<BackupDownloadModel>> BackupFull();
     
     /// <summary>
     /// Delete backup

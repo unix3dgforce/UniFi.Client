@@ -28,5 +28,4 @@ public class ClientModel : BaseModel
     /// </summary>
     [JsonProperty(PropertyName = "is_guest")]
     public bool? IsGuest { get; set; }
-  
 }

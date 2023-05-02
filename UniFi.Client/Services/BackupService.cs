@@ -4,16 +4,21 @@ namespace UniFi.Client.Services;
 
 public class BackupService : BaseService, IBackupService
 {
-    public BackupService(RestClient restClient, IConfigService configService) : base(restClient, configService) { }
+    private readonly IConfigService _configService;
 
-    public Task<OperationResult> BackupSite()
+    public BackupService(RestClient restClient, IConfigService configService) : base(restClient, configService)
     {
-        throw new NotImplementedException();
+        _configService = configService;
     }
 
-    public Task<OperationResult> BackupFull()
+    public async Task<OperationResult> BackupSite()
     {
-        throw new NotImplementedException();
+        return await GenerateBackup("export-site");
+    }
+
+    public async Task<OperationResult<BackupDownloadModel>> BackupFull()
+    {
+        return await GenerateBackup("backup");
     }
 
     public async Task<OperationResult> DeleteBackup(string filename)
@@ -35,5 +40,24 @@ public class BackupService : BaseService, IBackupService
     {
         return await TryPostAsync<BackupModel>($"api/s/{SiteId}/cmd/backup", new { Cmd = "list-backups" });
     }
+    
+    private async Task<OperationResult<BackupDownloadModel>> GenerateBackup(string command)
+    {
+        var response = await TryPostAsync<BackupDownloadModel>($"api/s/{SiteId}/cmd/backup", new { Cmd = command });
+        if (response.Result != OperationStatus.Success)
+            return OperationResult<BackupDownloadModel>.Fail(Resources.Backup_Error_Generation);
+        
+        var backup = response.Values.FirstOrDefault(b => string.IsNullOrEmpty(b?.DownloadUrl), null);
+        if (backup == null)
+            return OperationResult<BackupDownloadModel>.Fail(Resources.Backup_Error_Generation);
 
+        return new OperationResult<BackupDownloadModel>
+        {
+            Result = OperationStatus.Success,
+            Value = new BackupDownloadModel
+            {
+                DownloadUrl = $"https://{_configService.AppConfig.Endpoint.Host}:{_configService.AppConfig.Endpoint.Port}{backup.DownloadUrl}"
+            }
+        };
+    }
 }
