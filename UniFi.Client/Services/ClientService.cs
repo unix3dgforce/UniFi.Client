@@ -5,7 +5,6 @@ public class ClientService : BaseService, IClientService
     
     public ClientService(RestClient restClient, IConfigService configService) : base(restClient, configService) { }
     
-   
     public async Task<OperationResult> AuthorizeGuest(string macAddress)
     {
         return await AuthorizeGuest(new AuthorizeGuestModel { MacAddress = macAddress });
@@ -61,6 +60,11 @@ public class ClientService : BaseService, IClientService
             : await TryPostAsync($"api/s/{SiteId}/cmd/stamgr", new { Mac = macAddress, Cmd = "kick-sta"});
     }
 
+    public async Task<OperationResult<ClientModel>> RenameClient(string userId, string name)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<OperationResultList<ClientModel>> GetAllActiveClients()
     {
         return await TryGetAsync<ClientModel>($"api/s/{SiteId}/stat/sta");
@@ -70,6 +74,4 @@ public class ClientService : BaseService, IClientService
     {
         return await TryGetAsync<ClientModel>($"api/s/{SiteId}/stat/alluser");
     }
-
-    
 }
