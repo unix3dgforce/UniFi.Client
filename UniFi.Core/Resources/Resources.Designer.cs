@@ -60,6 +60,24 @@ namespace UniFi.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filename cannot be empty.
+        /// </summary>
+        public static string Backup_Info_NotEmpty_Filename {
+            get {
+                return ResourceManager.GetString("Backup_Info_NotEmpty_Filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup named &quot;{0}&quot; not found.
+        /// </summary>
+        public static string Backup_Info_NotFound_Filename {
+            get {
+                return ResourceManager.GetString("Backup_Info_NotFound_Filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Global_Error {
@@ -83,6 +101,15 @@ namespace UniFi.Core {
         public static string Services_NotEmpty_MacAddress {
             get {
                 return ResourceManager.GetString("Services_NotEmpty_MacAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid URL.
+        /// </summary>
+        public static string Validate_Error_FirmwareUrl {
+            get {
+                return ResourceManager.GetString("Validate_Error_FirmwareUrl", resourceCulture);
             }
         }
         

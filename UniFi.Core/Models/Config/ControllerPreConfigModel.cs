@@ -2,5 +2,5 @@
 
 public class ControllerPreConfigModel
 {
-    public string SiteId { get; init; }
+    public string SiteId { get; set; }
 }

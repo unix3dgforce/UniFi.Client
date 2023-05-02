@@ -5,7 +5,6 @@ public class MetaModel
     /// <summary>
     /// The result code indicating the successfulness of the request
     /// </summary>
-    
     [JsonProperty(PropertyName = "uuid")]
     public Guid Id { get; set; }
     

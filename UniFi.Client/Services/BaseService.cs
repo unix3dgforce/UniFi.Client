@@ -6,13 +6,12 @@ public abstract class BaseService : IService
     private readonly RestClient _restClient;
     private readonly IConfigService _configService;
 
-    protected string SiteId { get; private set; }
+    protected string SiteId => _configService.AppConfig.Controller?.SiteId ?? "default";
 
     protected BaseService(RestClient restClient, IConfigService configService)
     {
         _restClient = restClient;
         _configService = configService;
-        SiteId = configService.AppConfig.Controller?.SiteId ?? "default";
     }
 
     private async Task<OperationResult> Execute(
@@ -59,10 +58,15 @@ public abstract class BaseService : IService
         return await Execute(_restClient.PostAsync<T>, resource, body);
     }
     
+    protected async Task<OperationResult> TryPutAsync(string resource, object body = null)
+    {
+        return await Execute(_restClient.PutAsync, resource, body);
+    }
+    
     protected async Task<OperationResultList<T>> TryPutAsync<T>(string resource, object body = null)
         where T : BaseModel
     {
-        return await Execute(_restClient.GetAsync<T>, resource, body);
+        return await Execute(_restClient.PutAsync<T>, resource, body);
     }
     
     protected async Task<OperationResultList<T>> TryDeleteAsync<T>(string resource, object body = null)
@@ -70,5 +74,4 @@ public abstract class BaseService : IService
     {
         return await Execute(_restClient.DeleteAsync<T>, resource, body);
     }
-
 }
