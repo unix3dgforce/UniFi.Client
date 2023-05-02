@@ -30,4 +30,10 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="..\LICENSE.md">
+        <Link>LICENSE.md</Link>
+      </Content>
+    </ItemGroup>
+
 </Project>

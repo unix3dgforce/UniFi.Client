@@ -30,4 +30,13 @@
     <data name="Validate_Error_MacAddress" xml:space="preserve">
         <value>String "{0}" is not a MAC address</value>
     </data>
+    <data name="Validate_Error_FirmwareUrl" xml:space="preserve">
+        <value>Invalid URL</value>
+    </data>
+    <data name="Backup_Info_NotFound_Filename" xml:space="preserve">
+        <value>Backup named "{0}" not found</value>
+    </data>
+    <data name="Backup_Info_NotEmpty_Filename" xml:space="preserve">
+        <value>Filename cannot be empty</value>
+    </data>
 </root>

@@ -40,6 +40,13 @@ public interface IClientService : IService
     public Task<OperationResult> ReconnectClient(string macAddress);
 
     /// <summary>
+    /// Rename Client
+    /// </summary>
+    /// <param name="userId">Client's User Id for client to be renamed</param>
+    /// <param name="name">New name</param>
+    public Task<OperationResult<ClientModel>> RenameClient(string userId, string name);
+
+    /// <summary>
     /// Gets the currently connected clients
     /// </summary>
     /// <returns>List with connected clients</returns>
