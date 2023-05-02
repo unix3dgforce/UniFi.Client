@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Newtonsoft.Json.Serialization;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 using UniFi.Core.Services;
@@ -22,8 +23,19 @@ public class RestClient
         {
             RemoteCertificateValidationCallback = (sender, certificate, chain, errors) => true
         };
-        
-        _client = new RestSharp.RestClient(options, configureSerialization: s => s.UseNewtonsoftJson());
+
+        // _client = new RestSharp.RestClient(options, configureSerialization: s => s.UseNewtonsoftJson());
+        _client = new RestSharp.RestClient(
+            options, 
+            configureSerialization: s => s.UseNewtonsoftJson(
+                new JsonSerializerSettings {
+                    ContractResolver = new DefaultContractResolver{NamingStrategy = new SnakeCaseNamingStrategy()},
+                    DefaultValueHandling = DefaultValueHandling.Include,
+                    TypeNameHandling = TypeNameHandling.None,
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Formatting = Formatting.None,
+                    ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor })
+            );
     }
 
     public async Task<OperationResult> GetAsync(string resource, object body = null, CancellationToken cancellationToken = default)
@@ -146,9 +158,15 @@ public class RestClient
 
         var cookies = _cache.Get<CookieCollection>(_config.AppConfig.Credential.Username);
 
-        if (cookies != null && cookies.Result == OperationStatus.Success)
-            cookies.Value.ToList().ForEach(cookie =>
-                request.AddCookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
+        if (cookies == null || cookies.Result != OperationStatus.Success)
+            return request;
+        
+        cookies.Value.ToList().ForEach(cookie => request.AddCookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
+            
+        var tokenCookie = cookies.Value.ToList().FirstOrDefault(c => c.Name == "csrf_token");
+        
+        if (tokenCookie != null)
+            request.AddHeader("X-Csrf-Token", tokenCookie.Value);
 
         return request;
     }

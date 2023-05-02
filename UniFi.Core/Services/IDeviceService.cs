@@ -47,4 +47,15 @@ public interface IDeviceService : IService
     /// <param name="firmwareUrl">URL for the firmware file to upgrade the device to</param>
     /// <returns></returns>
     public Task<OperationResult> UpgradeDeviceExternal(string macAddress, string firmwareUrl);
+
+    /// <summary>
+    /// Override LED mode for a device
+    /// </summary>
+    /// <param name="deviceId">ID (_id) of the access point, which can be obtained from the device list</param>
+    /// <param name="mode">default/on/off;
+    /// "default" applies the site-wide setting for device LEDs
+    /// "on" enables the LED of the device,
+    /// "off" disables the LED of the device,
+    /// </param>
+    public Task<OperationResult> LedOverrideMode(string deviceId, OverrideModeEnum mode);
 }
