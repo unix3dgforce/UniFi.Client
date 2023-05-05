@@ -3,8 +3,23 @@
 public class ControllerService : BaseService, IControllerService
 {
     public ControllerService(RestClient restClient, IConfigService configService) : base(restClient, configService) { }
-    
-    public async Task<OperationResultList<SiteModel>> GetSites()
+
+    public Task<OperationResult> CreateSite(string description)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<OperationResult> EditSite(string siteName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<OperationResult> DeleteSite(string siteId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<OperationResultList<SiteModel>> GetAllSites()
     {
         return await TryGetAsync<SiteModel>("api/self/sites");
     }

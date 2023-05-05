@@ -1,6 +1,4 @@
-﻿using UniFi.Core;
-
-namespace UniFi.Client.Services;
+﻿namespace UniFi.Client.Services;
 
 public class DeviceService : BaseService, IDeviceService
 {

@@ -69,9 +69,28 @@ public abstract class BaseService : IService
         return await Execute(_restClient.PutAsync<T>, resource, body);
     }
     
+    protected async Task<OperationResult> TryDeleteAsync(string resource, object body = null)
+    {
+        return await Execute(_restClient.DeleteAsync, resource, body);
+    }
+    
     protected async Task<OperationResultList<T>> TryDeleteAsync<T>(string resource, object body = null)
         where T : BaseModel
     {
         return await Execute(_restClient.DeleteAsync<T>, resource, body);
+    }
+
+    protected async Task<OperationResult<T>> CheckExistsGroup<T>(Func<Task<OperationResultList<T>>> funcGetAllGroup, string value, bool isValueId = false)
+        where T : BaseGroupModel
+    {
+        var groups = await funcGetAllGroup();
+        if (groups.Result != OperationStatus.Success)
+            return OperationResult<T>.Fail();
+
+        return new OperationResult<T>
+        {
+            Result = OperationStatus.Success,
+            Value = groups.Values.FirstOrDefault(g => isValueId ? g.Id == value : g.Name == value, null)
+        };
     }
 }

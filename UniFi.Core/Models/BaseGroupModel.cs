@@ -1,6 +1,6 @@
 ﻿namespace UniFi.Core.Models;
 
-public class BaseModel
+public class BaseGroupModel : BaseModel
 {
     /// <summary>
     /// Unique identifier of the site

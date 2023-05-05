@@ -42,4 +42,43 @@
     <data name="Backup_Error_Generation" xml:space="preserve">
         <value>Backup generation error</value>
     </data>
+    <data name="Groups_Error_GroupName_NotEmpty" xml:space="preserve">
+        <value>Group name cannot be empty</value>
+    </data>
+    <data name="UserGroup_Error_Create" xml:space="preserve">
+        <value>Error create usergroup {0}</value>
+    </data>
+    <data name="UserGroup_Error_AlreadyExist" xml:space="preserve">
+        <value>User group {0} already exist</value>
+    </data>
+    <data name="UserGroup_Error_NotFound" xml:space="preserve">
+        <value>User group {0} not found</value>
+    </data>
+    <data name="Groups_Error_GroupId_NotEmpty" xml:space="preserve">
+        <value>Group id cannot be empty</value>
+    </data>
+    <data name="UserGroup_Error_NotFound_Id" xml:space="preserve">
+        <value>User group id {0} not found</value>
+    </data>
+    <data name="UserGroup_Error" xml:space="preserve">
+        <value>Error create/edit user group</value>
+    </data>
+    <data name="UserGroup_Error_DeleteGroup" xml:space="preserve">
+        <value>Unable to delete group {0}</value>
+    </data>
+    <data name="FirewallGroup_Error_NotFound" xml:space="preserve">
+        <value>Firewall group {0} not found</value>
+    </data>
+    <data name="FirewallGroup_Error_NotFound_Id" xml:space="preserve">
+        <value>Firewall group id {0} not found</value>
+    </data>
+    <data name="FirewallGroup_Error" xml:space="preserve">
+        <value>Error create/edit firewall group</value>
+    </data>
+    <data name="FirewallGroup_Error_AlreadyExist" xml:space="preserve">
+        <value>Firewall group {0} already exist</value>
+    </data>
+    <data name="FirewallGroup_Error_NotEmpty_Members" xml:space="preserve">
+        <value>Members cannot be empty</value>
+    </data>
 </root>
