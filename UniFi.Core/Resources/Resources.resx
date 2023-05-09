@@ -21,9 +21,6 @@
     <data name="Global_Successful" xml:space="preserve">
         <value>Successful</value>
     </data>
-    <data name="Global_Error" xml:space="preserve">
-        <value>Error</value>
-    </data>
     <data name="Services_NotEmpty_MacAddress" xml:space="preserve">
         <value>Mac address cannot be empty</value>
     </data>
@@ -42,43 +39,37 @@
     <data name="Backup_Error_Generation" xml:space="preserve">
         <value>Backup generation error</value>
     </data>
-    <data name="Groups_Error_GroupName_NotEmpty" xml:space="preserve">
-        <value>Group name cannot be empty</value>
+    <data name="Global_Error" xml:space="preserve">
+        <value>Error</value>
     </data>
-    <data name="UserGroup_Error_Create" xml:space="preserve">
-        <value>Error create usergroup {0}</value>
+    <data name="Access_Error_Method_Get" xml:space="preserve">
+        <value>Method Get not supported</value>
     </data>
-    <data name="UserGroup_Error_AlreadyExist" xml:space="preserve">
-        <value>User group {0} already exist</value>
+    <data name="Access_Error_Method_GetAll" xml:space="preserve">
+        <value>Method GetAll not supported</value>
     </data>
-    <data name="UserGroup_Error_NotFound" xml:space="preserve">
-        <value>User group {0} not found</value>
+    <data name="Access_Error_Method_Add" xml:space="preserve">
+        <value>Method Add not supported</value>
     </data>
-    <data name="Groups_Error_GroupId_NotEmpty" xml:space="preserve">
-        <value>Group id cannot be empty</value>
+    <data name="Access_Error_Method_Update" xml:space="preserve">
+        <value>Method Update not supported</value>
     </data>
-    <data name="UserGroup_Error_NotFound_Id" xml:space="preserve">
-        <value>User group id {0} not found</value>
+    <data name="Access_Error_Method_Delete" xml:space="preserve">
+        <value>Method Delete not supported</value>
     </data>
-    <data name="UserGroup_Error" xml:space="preserve">
-        <value>Error create/edit user group</value>
+    <data name="Global_Entity_AlreadyExists" xml:space="preserve">
+        <value>Entity already exists</value>
     </data>
-    <data name="UserGroup_Error_DeleteGroup" xml:space="preserve">
-        <value>Unable to delete group {0}</value>
+    <data name="Global_Entity_NotFound" xml:space="preserve">
+        <value>Entity not found</value>
     </data>
-    <data name="FirewallGroup_Error_NotFound" xml:space="preserve">
-        <value>Firewall group {0} not found</value>
+    <data name="Global_Entity_DontAllowDeletion" xml:space="preserve">
+        <value>Entity delete is not allowed</value>
     </data>
-    <data name="FirewallGroup_Error_NotFound_Id" xml:space="preserve">
-        <value>Firewall group id {0} not found</value>
+    <data name="Validate_Error_Id" xml:space="preserve">
+        <value>Id cannot be null</value>
     </data>
-    <data name="FirewallGroup_Error" xml:space="preserve">
-        <value>Error create/edit firewall group</value>
-    </data>
-    <data name="FirewallGroup_Error_AlreadyExist" xml:space="preserve">
-        <value>Firewall group {0} already exist</value>
-    </data>
-    <data name="FirewallGroup_Error_NotEmpty_Members" xml:space="preserve">
-        <value>Members cannot be empty</value>
+    <data name="Api_Error_Request" xml:space="preserve">
+        <value>Unable to complete API request</value>
     </data>
 </root>

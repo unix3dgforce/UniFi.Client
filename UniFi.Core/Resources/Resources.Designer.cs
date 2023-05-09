@@ -60,6 +60,60 @@ namespace UniFi.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Method Add not supported.
+        /// </summary>
+        public static string Access_Error_Method_Add {
+            get {
+                return ResourceManager.GetString("Access_Error_Method_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method Delete not supported.
+        /// </summary>
+        public static string Access_Error_Method_Delete {
+            get {
+                return ResourceManager.GetString("Access_Error_Method_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method Get not supported.
+        /// </summary>
+        public static string Access_Error_Method_Get {
+            get {
+                return ResourceManager.GetString("Access_Error_Method_Get", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method GetAll not supported.
+        /// </summary>
+        public static string Access_Error_Method_GetAll {
+            get {
+                return ResourceManager.GetString("Access_Error_Method_GetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method Update not supported.
+        /// </summary>
+        public static string Access_Error_Method_Update {
+            get {
+                return ResourceManager.GetString("Access_Error_Method_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to complete API request.
+        /// </summary>
+        public static string Api_Error_Request {
+            get {
+                return ResourceManager.GetString("Api_Error_Request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Backup generation error.
         /// </summary>
         public static string Backup_Error_Generation {
@@ -87,47 +141,29 @@ namespace UniFi.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error create/edit firewall group.
+        ///   Looks up a localized string similar to Entity already exists.
         /// </summary>
-        public static string FirewallGroup_Error {
+        public static string Global_Entity_AlreadyExists {
             get {
-                return ResourceManager.GetString("FirewallGroup_Error", resourceCulture);
+                return ResourceManager.GetString("Global_Entity_AlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Firewall group {0} already exist.
+        ///   Looks up a localized string similar to Entity delete is not allowed.
         /// </summary>
-        public static string FirewallGroup_Error_AlreadyExist {
+        public static string Global_Entity_DontAllowDeletion {
             get {
-                return ResourceManager.GetString("FirewallGroup_Error_AlreadyExist", resourceCulture);
+                return ResourceManager.GetString("Global_Entity_DontAllowDeletion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Members cannot be empty.
+        ///   Looks up a localized string similar to Entity not found.
         /// </summary>
-        public static string FirewallGroup_Error_NotEmpty_Members {
+        public static string Global_Entity_NotFound {
             get {
-                return ResourceManager.GetString("FirewallGroup_Error_NotEmpty_Members", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Firewall group {0} not found.
-        /// </summary>
-        public static string FirewallGroup_Error_NotFound {
-            get {
-                return ResourceManager.GetString("FirewallGroup_Error_NotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Firewall group id {0} not found.
-        /// </summary>
-        public static string FirewallGroup_Error_NotFound_Id {
-            get {
-                return ResourceManager.GetString("FirewallGroup_Error_NotFound_Id", resourceCulture);
+                return ResourceManager.GetString("Global_Entity_NotFound", resourceCulture);
             }
         }
         
@@ -150,24 +186,6 @@ namespace UniFi.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Group id cannot be empty.
-        /// </summary>
-        public static string Groups_Error_GroupId_NotEmpty {
-            get {
-                return ResourceManager.GetString("Groups_Error_GroupId_NotEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Group name cannot be empty.
-        /// </summary>
-        public static string Groups_Error_GroupName_NotEmpty {
-            get {
-                return ResourceManager.GetString("Groups_Error_GroupName_NotEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mac address cannot be empty.
         /// </summary>
         public static string Services_NotEmpty_MacAddress {
@@ -177,65 +195,20 @@ namespace UniFi.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error create/edit user group.
-        /// </summary>
-        public static string UserGroup_Error {
-            get {
-                return ResourceManager.GetString("UserGroup_Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User group {0} already exist.
-        /// </summary>
-        public static string UserGroup_Error_AlreadyExist {
-            get {
-                return ResourceManager.GetString("UserGroup_Error_AlreadyExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error create usergroup {0}.
-        /// </summary>
-        public static string UserGroup_Error_Create {
-            get {
-                return ResourceManager.GetString("UserGroup_Error_Create", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to delete group {0}.
-        /// </summary>
-        public static string UserGroup_Error_DeleteGroup {
-            get {
-                return ResourceManager.GetString("UserGroup_Error_DeleteGroup", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User group {0} not found.
-        /// </summary>
-        public static string UserGroup_Error_NotFound {
-            get {
-                return ResourceManager.GetString("UserGroup_Error_NotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User group id {0} not found.
-        /// </summary>
-        public static string UserGroup_Error_NotFound_Id {
-            get {
-                return ResourceManager.GetString("UserGroup_Error_NotFound_Id", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invalid URL.
         /// </summary>
         public static string Validate_Error_FirmwareUrl {
             get {
                 return ResourceManager.GetString("Validate_Error_FirmwareUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id cannot be null.
+        /// </summary>
+        public static string Validate_Error_Id {
+            get {
+                return ResourceManager.GetString("Validate_Error_Id", resourceCulture);
             }
         }
         

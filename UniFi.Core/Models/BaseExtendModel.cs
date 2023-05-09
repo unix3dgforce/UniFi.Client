@@ -1,10 +1,11 @@
 ﻿namespace UniFi.Core.Models;
 
-public class BaseGroupModel : BaseModel
+public class BaseExtendModel : BaseModel
 {
     /// <summary>
     /// Unique identifier of the site
     /// </summary>
+    [CheckExist]
     [JsonProperty(PropertyName = "_id")] 
     public string Id { get; set; }
     
@@ -15,7 +16,8 @@ public class BaseGroupModel : BaseModel
     public string SiteId { get; set; }
     
     /// <summary>
-    /// Name firewall group
+    /// Boolean indicating if deletion of this site is being disallowed
     /// </summary>
-    public string Name { get; set; }
+    [JsonProperty(PropertyName = "attr_no_delete")]
+    public bool? DontAllowDeletion { get; set; }
 }
