@@ -1,7 +1,12 @@
 ﻿namespace UniFi.Core.Models;
 
-public class UserGroupModel : BaseGroupModel
+public class UserGroupModel : BaseExtendModel
 {
+    /// <summary>
+    /// Name group
+    /// </summary>
+    public string Name { get; set; }
+    
     /// <summary>
     /// Internal identifier of the site
     /// </summary>

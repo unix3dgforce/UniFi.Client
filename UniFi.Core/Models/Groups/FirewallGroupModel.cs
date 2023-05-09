@@ -1,7 +1,12 @@
 ﻿namespace UniFi.Core.Models;
 
-public class FirewallGroupModel : BaseGroupModel
+public class FirewallGroupModel : BaseExtendModel
 {
+    /// <summary>
+    /// Name group
+    /// </summary>
+    public string Name { get; set; }
+    
     /// <summary>
     /// Type group
     /// </summary>
