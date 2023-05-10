@@ -1,10 +1,11 @@
 ﻿namespace UniFi.Core.Models;
 
-public class UserGroupModel : BaseExtendModel
+public class UserBandwidthProfileModel : BaseExtendModel
 {
     /// <summary>
     /// Name group
     /// </summary>
+    [CheckExist]
     public string Name { get; set; }
     
     /// <summary>
