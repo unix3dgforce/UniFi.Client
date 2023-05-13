@@ -68,7 +68,7 @@ public interface IRadiusProfileService : IService
     /// Update radius profile 
     /// </summary>
     /// <param name="item">Radius profile model</param>
-    public Task<OperationResult<RadiusProfileModel>> UpdateRadiusProfile(RadiusProfileModel item);
+    public Task<OperationResult<RadiusProfileModel>> EditRadiusProfile(RadiusProfileModel item);
 
     /// <summary>
     /// Delete radius profile 

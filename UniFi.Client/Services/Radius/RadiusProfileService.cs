@@ -14,7 +14,7 @@ public class RadiusProfileService : BaseService, IRadiusProfileService
         return await Repository.Add(item);
     }
 
-    public async Task<OperationResult<RadiusProfileModel>> UpdateRadiusProfile(RadiusProfileModel item)
+    public async Task<OperationResult<RadiusProfileModel>> EditRadiusProfile(RadiusProfileModel item)
     {
         return await Repository.Update(item);
     }

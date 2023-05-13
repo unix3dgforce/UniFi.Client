@@ -9,23 +9,23 @@ public class RadiusAccountService : BaseService, IRadiusAccountService
         Repository = new RepositoryBase(this, $"api/s/{SiteId}/rest/account");
     }
 
-    public async Task<OperationResult<RadiusAccountModel>> CreateRadiusAccount(RadiusAccountModel item)
+    public async Task<OperationResult<RadiusUserModel>> CreateRadiusAccount(RadiusUserModel item)
     {
         return await Repository.Add(item);
     }
 
-    public async Task<OperationResult<RadiusAccountModel>> UpdateRadiusAccount(RadiusAccountModel item)
+    public async Task<OperationResult<RadiusUserModel>> EditRadiusAccount(RadiusUserModel item)
     {
         return await Repository.Update(item);
     }
 
-    public async Task<OperationResult> DeleteRadiusAccount(RadiusAccountModel item)
+    public async Task<OperationResult> DeleteRadiusAccount(RadiusUserModel item)
     {
         return await Repository.Delete(item);
     }
 
-    public async Task<OperationResultList<RadiusAccountModel>> GetAllRadiusAccount()
+    public async Task<OperationResultList<RadiusUserModel>> GetAllRadiusAccount()
     {
-        return await Repository.GetAll<RadiusAccountModel>();
+        return await Repository.GetAll<RadiusUserModel>();
     }
 }

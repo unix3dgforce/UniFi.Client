@@ -6,24 +6,24 @@ public interface IRadiusAccountService : IService
     /// Create a Radius user account
     /// </summary>
     /// <param name="item">radius account model</param>
-    public Task<OperationResult<RadiusAccountModel>> CreateRadiusAccount(RadiusAccountModel item);
+    public Task<OperationResult<RadiusUserModel>> CreateRadiusAccount(RadiusUserModel item);
     
     /// <summary>
     /// Update a Radius user account
     /// </summary>
     /// <param name="item">radius account model</param>
-    public Task<OperationResult<RadiusAccountModel>> UpdateRadiusAccount(RadiusAccountModel item);
+    public Task<OperationResult<RadiusUserModel>> EditRadiusAccount(RadiusUserModel item);
 
     /// <summary>
     /// Delete a Radius account
     /// NOTES: - this function/method is only supported on controller versions 5.5.19 and later
     /// </summary>
     /// <param name="item">radius account model</param>
-    public Task<OperationResult> DeleteRadiusAccount(RadiusAccountModel item);
+    public Task<OperationResult> DeleteRadiusAccount(RadiusUserModel item);
     
     /// <summary>
     /// Get all radius account
     /// NOTES: - this function/method is only supported on controller versions 5.5.19 and later
     /// </summary>
-    public Task<OperationResultList<RadiusAccountModel>> GetAllRadiusAccount();
+    public Task<OperationResultList<RadiusUserModel>> GetAllRadiusAccount();
 }

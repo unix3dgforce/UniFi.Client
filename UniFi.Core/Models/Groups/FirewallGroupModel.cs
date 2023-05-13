@@ -5,6 +5,7 @@ public class FirewallGroupModel : BaseExtendModel
     /// <summary>
     /// Name group
     /// </summary>
+    [Required]
     [CheckExist]
     public string Name { get; set; }
     

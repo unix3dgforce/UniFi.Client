@@ -4,9 +4,12 @@ public class BackupService : BaseService, IBackupService
 {
     private readonly IConfigService _configService;
 
+    private RepositoryBase Repository { get; }
+
     public BackupService(RestClient restClient, IConfigService configService) : base(restClient, configService)
     {
         _configService = configService;
+        Repository = new RepositoryBase(this, "api/s/{SiteId}/cmd/backup", RepositoryMethodAccess.GetAll);
     }
 
     public async Task<OperationResult> BackupSite()
@@ -45,7 +48,7 @@ public class BackupService : BaseService, IBackupService
         if (response.Result != OperationStatus.Success)
             return OperationResult<BackupDownloadModel>.Fail(Resources.Backup_Error_Generation);
         
-        var backup = response.Values.FirstOrDefault(b => string.IsNullOrEmpty(b?.DownloadUrl), null);
+        var backup = response.Values.FirstOrDefault(b => !string.IsNullOrEmpty(b.DownloadUrl), null);
         if (backup == null)
             return OperationResult<BackupDownloadModel>.Fail(Resources.Backup_Error_Generation);
 

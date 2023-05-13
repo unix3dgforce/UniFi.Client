@@ -27,8 +27,8 @@ public class RadiusProfileModel : BaseExtendModel
 
     [JsonProperty(PropertyName = "use_usg_auth_server")]
     public bool UseUsgAuthServer { get; set; }
-
-    public IList<RadiusCredentialModel> AuthServers { get; set; } = new List<RadiusCredentialModel>();
+    
+    public IList<RadiusCredentialModel> AuthServers { get; set; }
     public IList<RadiusCredentialModel> AcctServers { get; set; } = new List<RadiusCredentialModel>();
     
     [JsonProperty(PropertyName = "vlan_enabled")]

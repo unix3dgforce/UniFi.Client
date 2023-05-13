@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection;
+using RestSharp.Extensions;
 
 namespace UniFi.Client.Services;
 
@@ -18,25 +20,19 @@ public class RepositoryBase
     public async Task<OperationResult<T>> Get<T>(T item)
         where T : BaseExtendModel
     {
-        if (_flagsAccess is not (RepositoryMethodAccess.Get or RepositoryMethodAccess.All))
+        if (!_flagsAccess.HasFlag(RepositoryMethodAccess.GetAll) || !_flagsAccess.HasFlag(RepositoryMethodAccess.GetAll))
             return OperationResult<T>.Fail(Resources.Access_Error_Method_Get);
-
-        // var model = (await GetAll<T>()).Values?.FirstOrDefault(r => type == TypeOfValue.Id ? r.Id == item.Id : r.Name == item.Name, null);
-        // if (model == null)
-        //     return OperationResult<T>.Fail();
-
-        return new OperationResult<T>
-        {
-            Result = OperationStatus.Success,
-            // Value = model
-            Value = null
-        };
+        
+        var entity = await CheckExists(item);
+        return entity.Result != OperationStatus.Success 
+            ? OperationResult<T>.Fail(Resources.Global_Entity_NotFound) 
+            : entity;
     }
 
     public async Task<OperationResultList<T>> GetAll<T>()
         where T : BaseExtendModel
     {
-        if (_flagsAccess is not (RepositoryMethodAccess.GetAll or RepositoryMethodAccess.All))
+        if (!_flagsAccess.HasFlag(RepositoryMethodAccess.GetAll))
             return OperationResultList<T>.Fail(Resources.Access_Error_Method_GetAll);
         
         return await _service.TryGetAsync<T>(_resource);
@@ -45,8 +41,11 @@ public class RepositoryBase
     public async Task<OperationResult<T>> Add<T>(T item)
         where T : BaseExtendModel
     {
-        if (_flagsAccess is not (RepositoryMethodAccess.Add or RepositoryMethodAccess.All))
+        if (!_flagsAccess.HasFlag(RepositoryMethodAccess.Add))
             return OperationResult<T>.Fail(Resources.Access_Error_Method_Add);
+
+        if (CheckRequiredIsNullOrEmpty(item))
+            return OperationResult<T>.Fail();
 
         var entity = await CheckExists(item);
         if (entity.Result != OperationStatus.Success)
@@ -69,11 +68,14 @@ public class RepositoryBase
     public async Task<OperationResult<T>> Update<T>(T item)
         where T : BaseExtendModel
     {
-        if (_flagsAccess is not (RepositoryMethodAccess.Update or RepositoryMethodAccess.All))
+        if (!_flagsAccess.HasFlag(RepositoryMethodAccess.Update))
             return OperationResult<T>.Fail(Resources.Access_Error_Method_Update);
-        
+            
         if (string.IsNullOrEmpty(item.Id))
             return OperationResult<T>.Fail(Resources.Validate_Error_Id);
+        
+        if (CheckRequiredIsNullOrEmpty(item))
+            return OperationResult<T>.Fail();
         
         var entity = await CheckExists(item);
         if (entity.Result != OperationStatus.Success)
@@ -96,7 +98,7 @@ public class RepositoryBase
     public async Task<OperationResult> Delete<T>(T item)
         where T : BaseExtendModel
     {
-        if (_flagsAccess is not (RepositoryMethodAccess.Delete or RepositoryMethodAccess.All))
+        if (!_flagsAccess.HasFlag(RepositoryMethodAccess.Delete))
             return OperationResult<T>.Fail(Resources.Access_Error_Method_Delete);
         
         if (string.IsNullOrEmpty(item.Id))
@@ -123,15 +125,23 @@ public class RepositoryBase
                 Message = entities.Message
             };
 
-        var validateProperties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-            .Where(p => p.GetCustomAttributes(typeof(CheckExistAttribute), true).Any());
-
-        var entity = entities.Values.FirstOrDefault(r => validateProperties.Any(p => p.GetValue(r).Equals(p.GetValue(item))));
+        var entity = entities.Values.FirstOrDefault(r =>
+            typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.GetCustomAttributes(typeof(CheckExistAttribute), true).Any())
+                .Any(p => p.GetValue(r).Equals(p.GetValue(item))));
 
         return new OperationResult<T>
         {
             Result = OperationStatus.Success,
             Value = entity
         };
+    }
+
+    private bool CheckRequiredIsNullOrEmpty<T>(T item)
+    {
+        return typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            .Where(p => p.GetAttribute<RequiredAttribute>() != null && p.PropertyType == typeof(string))
+            .Select(p => string.IsNullOrEmpty((string?)p.GetValue(item)))
+            .FirstOrDefault();
     }
 }
