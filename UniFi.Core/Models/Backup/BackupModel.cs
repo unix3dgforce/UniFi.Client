@@ -1,8 +1,6 @@
-﻿using UniFi.Core.Utils;
+﻿namespace UniFi.Core.Models;
 
-namespace UniFi.Core.Models;
-
-public class BackupModel : BaseModel
+public class BackupModel : BaseExtendModel
 {
     public string ControllerName { get; set; }
     

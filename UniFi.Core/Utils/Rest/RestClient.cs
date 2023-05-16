@@ -1,6 +1,8 @@
-﻿using System.Net;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using Newtonsoft.Json.Serialization;
 using RestSharp;
+using RestSharp.Authenticators;
 using RestSharp.Serializers.NewtonsoftJson;
 using UniFi.Core.Services;
 
@@ -25,29 +27,31 @@ public class RestClient
         };
 
         _client = new RestSharp.RestClient(
-            options, 
+            options,
             configureSerialization: s => s.UseNewtonsoftJson(
-                new JsonSerializerSettings {
-                    ContractResolver = new DefaultContractResolver{NamingStrategy = new SnakeCaseNamingStrategy()},
+                new JsonSerializerSettings
+                {
+                    ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() },
                     DefaultValueHandling = DefaultValueHandling.Include,
                     TypeNameHandling = TypeNameHandling.None,
                     NullValueHandling = NullValueHandling.Ignore,
                     Formatting = Formatting.None,
-                    ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor })
-            );
+                    ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
+                })
+        );
     }
 
     public async Task<OperationResult> GetAsync(string resource, object body = null, CancellationToken cancellationToken = default)
     {
         return await ExecuteAsync(resource, Method.Get, body, cancellationToken);
     }
-    
+
     public async Task<OperationResultList<T>> GetAsync<T>(string resource, object body = null, CancellationToken cancellationToken = default)
         where T : BaseModel
     {
         return await ExecuteAsync<T>(resource, Method.Get, body, cancellationToken);
     }
-    
+
     public async Task<OperationResult> PostAsync(string resource, object body = null, CancellationToken cancellationToken = default)
     {
         return await ExecuteAsync(resource, Method.Post, body, cancellationToken);
@@ -80,7 +84,7 @@ public class RestClient
     {
         return await ExecuteAsync<T>(resource, Method.Delete, body, cancellationToken);
     }
-    
+
     private async Task CheckAuthorized()
     {
         if (_cache.Get<CookieCollection>(_config.AppConfig.Credential.Username).Result == OperationStatus.Success)
@@ -89,7 +93,7 @@ public class RestClient
         var authResult = await Authenticate("api/login");
         if (authResult.Result == OperationStatus.Success)
             return;
-        
+
         await Authenticate("api/auth/login");
     }
 
@@ -103,16 +107,16 @@ public class RestClient
 
         if (!response.IsSuccessful || response.Cookies == null)
             return OperationResult.Fail();
-        
+
         return _cache.Add(_config.AppConfig.Credential.Username, response.Cookies);
 
     }
 
-    private async Task<OperationResult> ExecuteAsync(string resource, Method method, object body = null, CancellationToken cancellationToken = default, bool checkAuthorized = true)
+    private async Task<OperationResult> ExecuteAsync(string resource, Method method, object? body = null, CancellationToken cancellationToken = default, bool checkAuthorized = true)
     {
         if (checkAuthorized)
             await CheckAuthorized();
-        
+
         var request = CreateRequest(resource, method, body);
         if (request == null)
             return null;
@@ -125,30 +129,30 @@ public class RestClient
         return OperationResult.Success();
 
     }
-    
-    private async Task<OperationResultList<T>> ExecuteAsync<T>(string resource, Method method, object body = null, CancellationToken cancellationToken = default, bool checkAuthorized = true)
+
+    private async Task<OperationResultList<T>> ExecuteAsync<T>(string resource, Method method, object? body = null, CancellationToken cancellationToken = default, bool checkAuthorized = true)
         where T : BaseModel
     {
         if (checkAuthorized)
             await CheckAuthorized();
-        
+
         var request = CreateRequest(resource, method, body);
         if (request == null)
             return null;
 
         var response = await _client.ExecuteAsync<BaseResponseModel<T>>(request, cancellationToken);
-                
+
         if (!response.IsSuccessful)
             return OperationResultList<T>.Fail();
-        
+
         return new OperationResultList<T>
         {
             Result = OperationStatus.Success,
             Values = response.Data!.Data as List<T>
         };
     }
-    
-    private RestRequest CreateRequest(string resource, Method method, object body = null)
+
+    private RestRequest CreateRequest(string resource, Method method, object? body = null)
     {
         var request = new RestRequest($"{_baseUrl}/{resource}", method) { RequestFormat = DataFormat.Json };
 
@@ -159,14 +163,28 @@ public class RestClient
 
         if (cookies == null || cookies.Result != OperationStatus.Success)
             return request;
-        
-        cookies.Value.ToList().ForEach(cookie => request.AddCookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
-            
-        var tokenCookie = cookies.Value.ToList().FirstOrDefault(c => c.Name == "csrf_token");
-        
-        if (tokenCookie != null)
-            request.AddHeader("X-Csrf-Token", tokenCookie.Value);
+
+        cookies.Value.ToList()
+            .ForEach(cookie => request.AddCookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
+
+        var token = GetCsrfToken(cookies.Value);
+
+        if (token != null)
+            request.AddHeader("X-Csrf-Token", token);
 
         return request;
+    }
+
+    private static string? GetCsrfToken(CookieCollection cookies)
+    {
+        var token = cookies.FirstOrDefault(c => c.Name == "csrf_token")?.Value;
+        if (token != null)
+            return token;
+
+        var handler = new JwtSecurityTokenHandler();
+        var jwtTokenRaw = cookies.FirstOrDefault(c => c.Name == "TOKEN")?.Value;
+        return jwtTokenRaw != null 
+            ? (string?)handler.ReadJwtToken(jwtTokenRaw).Payload.FirstOrDefault(r => r.Key == "csrfToken").Value
+            : null;
     }
 }

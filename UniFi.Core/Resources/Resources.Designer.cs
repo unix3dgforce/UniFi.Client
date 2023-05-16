@@ -60,6 +60,60 @@ namespace UniFi.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Method Add not supported.
+        /// </summary>
+        public static string Access_Error_Method_Add {
+            get {
+                return ResourceManager.GetString("Access_Error_Method_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method Delete not supported.
+        /// </summary>
+        public static string Access_Error_Method_Delete {
+            get {
+                return ResourceManager.GetString("Access_Error_Method_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method Get not supported.
+        /// </summary>
+        public static string Access_Error_Method_Get {
+            get {
+                return ResourceManager.GetString("Access_Error_Method_Get", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method GetAll not supported.
+        /// </summary>
+        public static string Access_Error_Method_GetAll {
+            get {
+                return ResourceManager.GetString("Access_Error_Method_GetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method Update not supported.
+        /// </summary>
+        public static string Access_Error_Method_Update {
+            get {
+                return ResourceManager.GetString("Access_Error_Method_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to complete API request.
+        /// </summary>
+        public static string Api_Error_Request {
+            get {
+                return ResourceManager.GetString("Api_Error_Request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Backup generation error.
         /// </summary>
         public static string Backup_Error_Generation {
@@ -83,6 +137,33 @@ namespace UniFi.Core {
         public static string Backup_Info_NotFound_Filename {
             get {
                 return ResourceManager.GetString("Backup_Info_NotFound_Filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity already exists.
+        /// </summary>
+        public static string Global_Entity_AlreadyExists {
+            get {
+                return ResourceManager.GetString("Global_Entity_AlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity delete is not allowed.
+        /// </summary>
+        public static string Global_Entity_DontAllowDeletion {
+            get {
+                return ResourceManager.GetString("Global_Entity_DontAllowDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity not found.
+        /// </summary>
+        public static string Global_Entity_NotFound {
+            get {
+                return ResourceManager.GetString("Global_Entity_NotFound", resourceCulture);
             }
         }
         
@@ -119,6 +200,15 @@ namespace UniFi.Core {
         public static string Validate_Error_FirmwareUrl {
             get {
                 return ResourceManager.GetString("Validate_Error_FirmwareUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id cannot be null.
+        /// </summary>
+        public static string Validate_Error_Id {
+            get {
+                return ResourceManager.GetString("Validate_Error_Id", resourceCulture);
             }
         }
         
