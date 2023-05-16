@@ -2,7 +2,12 @@
 
 public class AccessPointService : BaseService, IAccessPointService
 {
-    public AccessPointService(RestClient restClient, IConfigService configService) : base(restClient, configService) { }
+    private RepositoryBase Repository { get; }
+
+    public AccessPointService(RestClient restClient, IConfigService configService) : base(restClient, configService)
+    {
+        Repository = new RepositoryBase(this, $"api/s/{SiteId}/upd/device/");
+    }
 
     public async Task<OperationResult> LocateAccessPoint(string macAddress, bool state)
     {

@@ -1,6 +1,6 @@
 ﻿namespace UniFi.Core.Models;
 
-public class ClientModel : BaseModel
+public class ClientModel : BaseExtendModel
 {
     [JsonProperty(PropertyName = "_id")] 
     public string Id { get; set; }
