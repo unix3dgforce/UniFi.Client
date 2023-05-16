@@ -14,8 +14,6 @@ Support for UniFi OS-based controllers has been added as of version 1.1.47:
 - UniFi Dream Machine (UDM)
 - UniFi Dream Machine Pro (UDM PRO)
 
-## Example usage
-
 ## Contribute
 
 If you would like to contribute code (improvements), please open an issue and include

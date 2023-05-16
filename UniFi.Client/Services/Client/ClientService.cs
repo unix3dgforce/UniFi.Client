@@ -2,8 +2,12 @@
 
 public class ClientService : BaseService, IClientService
 {
-    
-    public ClientService(RestClient restClient, IConfigService configService) : base(restClient, configService) { }
+    private RepositoryBase Repository { get; }
+
+    public ClientService(RestClient restClient, IConfigService configService) : base(restClient, configService)
+    {
+        Repository = new RepositoryBase(this, $"api/s/{SiteId}/stat/alluser", RepositoryMethodAccess.GetAll);
+    }
     
     public async Task<OperationResult> AuthorizeGuest(string macAddress)
     {
@@ -72,6 +76,6 @@ public class ClientService : BaseService, IClientService
     
     public async Task<OperationResultList<ClientModel>> GetAllClients()
     {
-        return await TryGetAsync<ClientModel>($"api/s/{SiteId}/stat/alluser");
+        return await Repository.GetAll<ClientModel>();
     }
 }

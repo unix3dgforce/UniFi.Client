@@ -5,13 +5,18 @@
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Authors>Sergey Korkin</Authors>
-        <Copyright>Sergey.K (a.k.a unix3dgforce)</Copyright>
+        <Copyright>Sergey Korkin (a.k.a unix3dgforce)</Copyright>
         <PackageProjectUrl>https://github.com/unix3dgforce/UniFi.Client</PackageProjectUrl>
-        <PackageLicenseUrl>https://raw.githubusercontent.com/unix3dgforce/UniFi.Client/main/LICENSE.md</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/unix3dgforce/UniFi.Client</RepositoryUrl>
         <TargetFramework>net7.0</TargetFramework>
+        <PackageIcon>Resources\unifi.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <Title>UniFi Client</Title>
+        <PackageTags>#unifi, #ubnt</PackageTags>
+        <Description>UniFi Controller API client</Description>
     </PropertyGroup>
-
+    
     <ItemGroup>
       <ProjectReference Include="..\UniFi.Core\UniFi.Core.csproj" />
     </ItemGroup>
@@ -24,11 +29,27 @@
       <PackageReference Include="RestSharp" Version="110.2.0" />
       <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="110.1.0" />
     </ItemGroup>
+    
+    <ItemGroup>
+        <None Include="..\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <None Include="..\LICENSE.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
 
     <ItemGroup>
       <Content Include="..\LICENSE.md">
         <Link>LICENSE.md</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Resources\unifi.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
     </ItemGroup>
 
 </Project>
