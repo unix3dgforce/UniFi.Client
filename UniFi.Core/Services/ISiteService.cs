@@ -1,6 +1,6 @@
 ﻿namespace UniFi.Core.Services;
 
-public interface IControllerService : IService
+public interface ISiteService : IService
 {
     /// <summary>
     /// Create a site

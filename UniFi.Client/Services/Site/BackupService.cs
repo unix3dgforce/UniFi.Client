@@ -9,7 +9,7 @@ public class BackupService : BaseService, IBackupService
     public BackupService(RestClient restClient, IConfigService configService) : base(restClient, configService)
     {
         _configService = configService;
-        Repository = new RepositoryBase(this, "api/s/{SiteId}/cmd/backup", RepositoryMethodAccess.GetAll);
+        Repository = new RepositoryBase(this, $"api/s/{SiteId}/cmd/backup", RepositoryMethodAccess.GetAll);
     }
 
     public async Task<OperationResult> BackupSite()

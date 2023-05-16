@@ -1,6 +1,6 @@
 # Files
 UniFi.Playground/
-UniFi.Client/appsettings.Development.json
+UniFi.Client/Resources/
 
 # User-specific files
 *.rsuser

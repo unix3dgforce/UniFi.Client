@@ -4,7 +4,7 @@ using RestSharp.Extensions;
 
 namespace UniFi.Client.Services;
 
-public class RepositoryBase
+internal class RepositoryBase
 {
     private readonly BaseService _service;
     private readonly string _resource;

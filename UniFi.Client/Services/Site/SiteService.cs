@@ -1,8 +1,8 @@
 ﻿namespace UniFi.Client.Services;
 
-public class ControllerService : BaseService, IControllerService
+public class SiteService : BaseService, ISiteService
 {
-    public ControllerService(RestClient restClient, IConfigService configService) : base(restClient, configService) { }
+    public SiteService(RestClient restClient, IConfigService configService) : base(restClient, configService) { }
 
     public Task<OperationResult> CreateSite(string description)
     {
