@@ -15,11 +15,32 @@
         <Title>UniFi Client</Title>
         <PackageTags>#unifi, #ubnt</PackageTags>
         <Description>UniFi Controller API client</Description>
+        <Version>1.0.4</Version>
+        <RepositoryType>git</RepositoryType>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
-    
-    <ItemGroup>
-      <ProjectReference Include="..\UniFi.Core\UniFi.Core.csproj" />
+
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <ProjectReference Include="..\UniFi.Core\UniFi.Core.csproj"/>
     </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <ProjectReference Include="..\UniFi.Core\UniFi.Core.csproj" PrivateAssets="all" />
+    </ItemGroup>
+    
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+    </PropertyGroup>
+    <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
+        <ItemGroup>
+            <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')->WithMetadataValue('PrivateAssets', 'All'))" />
+        </ItemGroup>
+    </Target>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
@@ -39,17 +60,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\LICENSE.md">
-        <Link>LICENSE.md</Link>
-      </Content>
+      <None Update="Resources\unifi.png" Pack="true" PackagePath="\" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Resources\unifi.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-      </None>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
     </ItemGroup>
 
 </Project>
