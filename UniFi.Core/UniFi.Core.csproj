@@ -4,6 +4,25 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>UniFi Client Core</Title>
+        <Authors>Sergey Korkin</Authors>
+        <Description>UniFi Controller API client core</Description>
+        <Copyright>Sergey Korkin (a.k.a unix3dgforce)</Copyright>
+        <PackageProjectUrl>https://github.com/unix3dgforce/UniFi.Client</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/unix3dgforce/UniFi.Client</RepositoryUrl>
+        <PackageIcon>Resources\unifi.png</PackageIcon>
+        <RepositoryType>git</RepositoryType>
+        <Version>1.0.4</Version>
+        <PackageTags>#unifi, #ubnt</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
 
     <ItemGroup>
@@ -32,9 +51,19 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\LICENSE.md">
-        <Link>LICENSE.md</Link>
-      </Content>
+        <None Update="Resources\unifi.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\LICENSE.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     </ItemGroup>
 
 </Project>
