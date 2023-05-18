@@ -24,5 +24,6 @@ Global
 		{B205339D-2599-493C-ABD3-C14A6DBEE99B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B205339D-2599-493C-ABD3-C14A6DBEE99B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B205339D-2599-493C-ABD3-C14A6DBEE99B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B205339D-2599-493C-ABD3-C14A6DBEE99B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
