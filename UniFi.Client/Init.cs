@@ -18,6 +18,7 @@ public static class Init
         services.AddScoped<IRadiusAccountService, RadiusAccountService>();
         services.AddScoped<IDynamicDnsService, DynamicDnsService>();
         services.AddScoped<ISettingsService, SettingsService>();
+        services.AddScoped<INetworkService, NetworkService>();
         services.AddSingleton<RestClient>();
         services.AddSingleton<IUniFiClient, UniFiClient>();
     }

@@ -13,7 +13,7 @@
         <RepositoryUrl>https://github.com/unix3dgforce/UniFi.Client</RepositoryUrl>
         <PackageIcon>Resources\unifi.png</PackageIcon>
         <RepositoryType>git</RepositoryType>
-        <Version>1.0.4</Version>
+        <Version>1.0.5</Version>
         <PackageTags>#unifi, #ubnt</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>

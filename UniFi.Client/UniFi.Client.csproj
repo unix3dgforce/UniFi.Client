@@ -15,7 +15,7 @@
         <Title>UniFi Client</Title>
         <PackageTags>#unifi, #ubnt</PackageTags>
         <Description>UniFi Controller API client</Description>
-        <Version>1.0.4</Version>
+        <Version>1.0.5</Version>
         <RepositoryType>git</RepositoryType>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -26,7 +26,7 @@
     </PropertyGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-        <ProjectReference Include="..\UniFi.Core\UniFi.Core.csproj"/>
+        <ProjectReference Include="..\UniFi.Core\UniFi.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
@@ -38,7 +38,7 @@
     </PropertyGroup>
     <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
         <ItemGroup>
-            <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')->WithMetadataValue('PrivateAssets', 'All'))" />
+            <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;WithMetadataValue('PrivateAssets', 'All'))" />
         </ItemGroup>
     </Target>
 
@@ -64,7 +64,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     </ItemGroup>
 
 </Project>

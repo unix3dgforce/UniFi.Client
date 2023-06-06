@@ -14,5 +14,6 @@ public interface IUniFiClient
     IRadiusProfileService RadiusProfileService { get; init; }
     IRadiusAccountService RadiusAccountService { get; init; }
     IDynamicDnsService DynamicDnsService { get; init; }
-    ISettingsService SettingsService { get; set; }
+    ISettingsService SettingsService { get; init; }
+    INetworkService NetworkService { get; init; }
 }

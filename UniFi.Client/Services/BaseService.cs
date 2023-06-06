@@ -1,4 +1,6 @@
-﻿namespace UniFi.Client.Services;
+﻿using System.Diagnostics;
+
+namespace UniFi.Client.Services;
 
 public abstract class BaseService : IService
 {

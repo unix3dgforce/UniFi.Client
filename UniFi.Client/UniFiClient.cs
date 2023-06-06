@@ -14,7 +14,8 @@ internal class UniFiClient : IUniFiClient
     public IRadiusProfileService RadiusProfileService { get; init; }
     public IRadiusAccountService RadiusAccountService { get; init; }
     public IDynamicDnsService DynamicDnsService { get; init; }
-    public ISettingsService SettingsService { get; set; }
+    public ISettingsService SettingsService { get; init; }
+    public INetworkService NetworkService { get; init; }
 
     public UniFiClient(
         IConfigService configService, 
@@ -29,7 +30,8 @@ internal class UniFiClient : IUniFiClient
         IRadiusProfileService radiusProfileService,
         IRadiusAccountService radiusAccountService,
         IDynamicDnsService dynamicDnsService,
-        ISettingsService settingsService)
+        ISettingsService settingsService,
+        INetworkService networkService)
     {
         ConfigService = configService;
         SiteService = controllerService;
@@ -44,5 +46,6 @@ internal class UniFiClient : IUniFiClient
         RadiusAccountService = radiusAccountService;
         DynamicDnsService = dynamicDnsService;
         SettingsService = settingsService;
+        NetworkService = networkService;
     }
 }
